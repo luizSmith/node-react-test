@@ -5,7 +5,7 @@
   "bracketSpacing": true,
   "jsxBracketSameLine": true,
   "semi": true,
-  "singleQuote": false,
+  "singleQuote": true,
   "quoteProps": "as-needed",
   "parser": "typescript"
 }
