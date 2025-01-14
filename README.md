@@ -1,33 +1,41 @@
 ### FCamara
+
 *"Queremos ser como uma árvore, crescer um pouco todos os dias e tentar tocar o céu, sem perder a solidez de nossas raízes." Conheça:* [www.fcamara.com.br](http://www.fcamara.com.br "www.fcamara.com.br")
 
 ### Teste para vaga desenvolvedor node.js/react.js
+
 ------------
-Criar um sistema de controle de aluguel livros em uma biblioteca. 
-Dados: 
+Criar um sistema de controle de aluguel livros em uma biblioteca.
+Dados:
+
 - um livro pode ter varias copias
 - uma copia não pode estar com mais de uma pessoa ao mesmo tempo
 
 Todos os campos são obrigatórios.
+
 ### Cadastro de Pessoa
+
 - Nome
 - CPF
 - Data Nascimento
 - Endereço completo
 
 ### Cadastro de Livro
+
 - Titulo
 - Autor
 - ISBN
 - Código da cópia
 
 ### Funcionalidades
+
 - Pessoa: CRUD
 - Livro: CRUD
 - Copia: CRUD
 - Controle de aluguel
 
 ### Requisitos
+
 - Persistencia utlizando banco de dados relacional open source (MySQL, Postgresql, Firebird, etc..) de sua preferencia
 - RESTful JSON
 - Autenticacao JWT
@@ -38,12 +46,11 @@ Todos os campos são obrigatórios.
 - Criar README do projeto descrevendo as tecnologias utilizadas, chamadas dos serviços e configurações necessário para executar a aplicação
 
 ### Submissão
+
 ------------
 Crie um fork do teste para acompanharmos o seu desenvolvimento através dos seus commits.
 
 ### Obrigado
+
 ------------
 Agradecemos sua participação no teste. Boa sorte!
-
-
-
