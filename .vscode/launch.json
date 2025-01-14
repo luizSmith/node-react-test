@@ -1,0 +1,25 @@
+{
+    "configurations": [
+        {
+            "type": "node-terminal",
+            "name": "Run Script: start:dev",
+            "request": "launch",
+            "command": "yarn start:dev",
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "node-terminal",
+            "name": "Run Build",
+            "request": "launch",
+            "command": "yarn build",
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "node-terminal",
+            "name": "Run test",
+            "request": "launch",
+            "command": "yarn test",
+            "cwd": "${workspaceFolder}"
+        }
+    ]
+}
