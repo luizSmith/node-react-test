@@ -1,0 +1,18 @@
+version: '3.1'
+
+services:
+  mysql:
+    image: mysql:latest
+    container_name: db_biblioteca
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456
+      MYSQL_DATABASE: db_biblioteca
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: 123456
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+
+volumes:
+  mysql-data:
