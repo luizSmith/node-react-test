@@ -6,6 +6,8 @@ import { SegurancaMiddleware } from './infraestructure/seguranca/seguranca.inter
 import { PessoaControllerModule } from './controller/pessoa/pessoa.controller.module';
 import { addTransactionalDataSource } from 'typeorm-transactional';
 import { DataSource } from 'typeorm';
+import { LivrosControllerModule } from './controller/livros/livros.controller.module';
+import { AutorControllerModule } from './controller/autor/autor.controller.module';
 
 @Module({
   imports: [
@@ -35,6 +37,7 @@ import { DataSource } from 'typeorm';
     }),
     AuthControllerModule,
     PessoaControllerModule,
+    AutorControllerModule
   ],
 })
 export class AppModule implements NestModule {

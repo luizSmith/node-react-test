@@ -52,6 +52,7 @@ CREATE TABLE IF NOT EXISTS db_biblioteca.tb_livro (
 	nm_livro VARCHAR(55) NOT NULL,
 	dt_lancamento DATE NOT NULL,
 	cd_autor INT NOT NULL,
+	ic_ativo BOOLEAN DEFAULT 1,
 	CONSTRAINT fk_livro_autor
 		FOREIGN KEY(cd_autor)
 			REFERENCES tb_autor(cd_autor)
@@ -63,6 +64,7 @@ CREATE TABLE IF NOT EXISTS db_biblioteca.tb_copia_livro (
 	cd_copia INT AUTO_INCREMENT PRIMARY KEY,
 	cd_livro INT NOT NULL,
 	dt_estoque DATE NOT NULL,
+	ic_ativo BOOLEAN DEFAULT 1,
 	CONSTRAINT fk_copia_livro
 		FOREIGN KEY(cd_livro)
 			REFERENCES tb_livro(cd_livro)
