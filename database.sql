@@ -17,17 +17,17 @@ CREATE TABLE IF NOT EXISTS db_biblioteca.tb_autor (
 );
 
 CREATE TABLE IF NOT EXISTS tb_estado (
-    uf VARCHAR(2) PRIMARY KEY,
-    nome VARCHAR(70) UNIQUE NOT NULL
+    sg_uf VARCHAR(2) PRIMARY KEY,
+    nm_estado VARCHAR(70) UNIQUE NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS tb_cidade (
     cd_cidade INT AUTO_INCREMENT PRIMARY KEY,
-    nome VARCHAR(70) NOT NULL,
-    uf VARCHAR(2) NOT NULL,
+    nm_cidade VARCHAR(70) NOT NULL,
+    sg_uf VARCHAR(2) NOT NULL,
     CONSTRAINT fk_estado_cidade
-        FOREIGN KEY (uf) 
-            REFERENCES tb_estado(uf) 
+        FOREIGN KEY (sg_uf) 
+            REFERENCES tb_estado(sg_uf) 
                 ON DELETE CASCADE
 );
 
@@ -36,10 +36,11 @@ CREATE TABLE IF NOT EXISTS db_biblioteca.tb_pessoa (
 	nm_pessoa VARCHAR(55) NOT NULL,
 	cd_cpf VARCHAR(14) NOT NULL UNIQUE,
 	dt_nascimento DATE NOT NULL,
-    logradouro VARCHAR(200) NOT NULL,
-    numero INT NOT NULL,
-    referencia VARCHAR(200) NOT NULL,
+    nm_logradouro VARCHAR(200) NOT NULL,
+    vl_numero INT NOT NULL,
+    nm_referencia VARCHAR(200) NOT NULL,
     cd_cidade INT NOT NULL,
+	ic_ativo BOOLEAN DEFAULT 1,
     CONSTRAINT fk_cidade_pessoa
         FOREIGN KEY (cd_cidade) 
             REFERENCES tb_cidade(cd_cidade) 
@@ -87,3 +88,32 @@ CREATE TABLE IF NOT EXISTS db_biblioteca.tb_aluguel (
 				ON DELETE CASCADE
  				ON UPDATE CASCADE
 );
+
+INSERT INTO tb_estado (sg_uf, nm_estado) VALUES
+('AC', 'Acre'),
+('AL', 'Alagoas'),
+('AP', 'Amapá'),
+('AM', 'Amazonas'),
+('BA', 'Bahia'),
+('CE', 'Ceará'),
+('DF', 'Distrito Federal'),
+('ES', 'Espírito Santo'),
+('GO', 'Goiás'),
+('MA', 'Maranhão'),
+('MT', 'Mato Grosso'),
+('MS', 'Mato Grosso do Sul'),
+('MG', 'Minas Gerais'),
+('PA', 'Pará'),
+('PB', 'Paraíba'),
+('PR', 'Paraná'),
+('PE', 'Pernambuco'),
+('PI', 'Piauí'),
+('RJ', 'Rio de Janeiro'),
+('RN', 'Rio Grande do Norte'),
+('RS', 'Rio Grande do Sul'),
+('RO', 'Rondônia'),
+('RR', 'Roraima'),
+('SC', 'Santa Catarina'),
+('SP', 'São Paulo'),
+('SE', 'Sergipe'),
+('TO', 'Tocantins');

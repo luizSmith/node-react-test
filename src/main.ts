@@ -2,12 +2,17 @@ import * as dotenv from 'dotenv';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { ErroCustomisadoInterceptor } from './infraestructure/interceptors/erroCustomisado.interceptor';
+import { initializeTransactionalContext } from 'typeorm-transactional';
 
 initializeEnvironmentConfig();
 
 async function bootstrap() {
+  initializeTransactionalContext()
   const app = await NestFactory.create(AppModule);
   app.enableCors();
+
+  app.useGlobalInterceptors(new ErroCustomisadoInterceptor());
 
   const config = new DocumentBuilder()
     .setTitle('API Biblioteca')

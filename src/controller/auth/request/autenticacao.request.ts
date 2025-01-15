@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty } from 'class-validator';
+import { IsEmail, IsNotEmpty } from 'class-validator';
 
 export class AutenticacaoRequest {
   @ApiProperty({
@@ -7,8 +7,9 @@ export class AutenticacaoRequest {
     required: true,
   })
   @IsNotEmpty({
-    message: 'Login obrigatório',
+    message: 'email obrigatório',
   })
+  @IsEmail()
   email: string;
 
   @ApiProperty({
