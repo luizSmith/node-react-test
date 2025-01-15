@@ -37,7 +37,8 @@ import { AutorControllerModule } from './controller/autor/autor.controller.modul
     }),
     AuthControllerModule,
     PessoaControllerModule,
-    AutorControllerModule
+    AutorControllerModule,
+    LivrosControllerModule,
   ],
 })
 export class AppModule implements NestModule {

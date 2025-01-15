@@ -28,10 +28,10 @@ export class AutorRepository {
             .createQueryBuilder('autor')
             .select([
                 'autor.cd_autor id',
-                'autor.nm_autor nomeAutor',
+                'autor.nm_autor nome',
             ])
             .where('autor.cd_autor = :idAutor', { idAutor })
-            .getOne();
+            .getRawOne()
 
         return autor;
     }

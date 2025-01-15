@@ -1,11 +1,6 @@
 import { ApiProperty } from "@nestjs/swagger";
 
-export class ObterAutorResponse {
-    @ApiProperty({
-        description: 'Id do autor',
-    })
-    id: number;
-
+export class CriarAutorRequest {
     @ApiProperty({
         description: 'Nome do autor',
     })

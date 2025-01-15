@@ -1,5 +1,4 @@
 export class CriarAutorDTO {
-    id: number;
     nome: string;
 }
 

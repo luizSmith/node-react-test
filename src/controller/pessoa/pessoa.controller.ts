@@ -8,7 +8,7 @@ import { ObterPessoaIdRequest } from './request/obterPessoa.request';
 import { AtualizarPessoaRequest, CriarPessoaRequest } from './request/criarPessoa.request';
 
 @Controller('pessoas')
-@ApiTags('Pessoa')
+@ApiTags('Pessoas')
 export class PessoaController {
     constructor(private readonly _pessoaService: PessoaService) { }
 
