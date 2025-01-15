@@ -26,6 +26,7 @@ export class PessoaRepository {
             .addSelect('cidade.nm_cidade', 'cidade')
             .addSelect('cidade.sg_uf', 'estado')
             .innerJoin(Cidade, 'cidade', 'cidade.cd_cidade = pessoa.cd_cidade')
+            .where('pessoa.ic_ativo = true')
             .getRawMany<ObterPessoaDAO>();
 
         return pessoa;
@@ -44,7 +45,8 @@ export class PessoaRepository {
             .addSelect('cidade.nm_cidade', 'cidade')
             .addSelect('cidade.sg_uf', 'estado')
             .innerJoin(Cidade, 'cidade', 'cidade.cd_cidade = pessoa.cd_cidade')
-            .where(`pessoa.cd_pessoa = :idPessoa`, { idPessoa })
+            .where('pessoa.ic_ativo = true')
+            .andWhere(`pessoa.cd_pessoa = :idPessoa`, { idPessoa })
             .getRawOne<ObterPessoaDAO>()
 
         return pessoa;

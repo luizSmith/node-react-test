@@ -23,6 +23,7 @@ export class LivrosRepository {
         'autor.nm_autor nomeAutor',
       ])
       .innerJoin(Autor, 'autor', 'autor.cd_autor = livro.cd_autor')
+      .where('livro.ic_ativo = true')
       .getRawMany<ObterLivroDAO>();
 
     return livros;
@@ -38,7 +39,8 @@ export class LivrosRepository {
         'autor.nm_autor nomeAutor',
       ])
       .innerJoin(Autor, 'autor', 'autor.cd_autor = livro.cd_autor')
-      .where('livro.cd_livro = :idLivro', { idLivro })
+      .where('livro.ic_ativo = true')
+      .andWhere('livro.cd_livro = :idLivro', { idLivro })
       .getRawOne();
 
     return livros;

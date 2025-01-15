@@ -3,7 +3,7 @@ import { AtualizarPessoaRequest, CriarPessoaRequest } from "src/controller/pesso
 import { ObterPessoaResponse } from "src/controller/pessoa/response/obterPessoa.response";
 import { RegraDeNegocioException } from "src/infraestructure/exceptions/regraDeNegocio.exception";
 import { PessoaRepository } from "src/repository/pessoa/pessoa.repository";
-import { ViaCepClient } from "src/repository/viaCep/viaCep.client";
+import { ViaCepClient } from "src/repository/client/viaCep/viaCep.client";
 import { CidadeService } from "../cidade/cidade.service";
 import { Cidade } from "src/repository/cidade/entity/cidade.entity";
 import { AtualizarPessoaDTO, CriarPessoaDTO } from "src/model/pessoa/dto/criarPessoa.dto";
