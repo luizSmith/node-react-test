@@ -8,6 +8,7 @@ import { addTransactionalDataSource } from 'typeorm-transactional';
 import { DataSource } from 'typeorm';
 import { LivrosControllerModule } from './controller/livros/livros.controller.module';
 import { AutorControllerModule } from './controller/autor/autor.controller.module';
+import { CopiasControllerModule } from './controller/copias/copias.controller.module';
 
 @Module({
   imports: [
@@ -39,6 +40,7 @@ import { AutorControllerModule } from './controller/autor/autor.controller.modul
     PessoaControllerModule,
     AutorControllerModule,
     LivrosControllerModule,
+    CopiasControllerModule,
   ],
 })
 export class AppModule implements NestModule {
