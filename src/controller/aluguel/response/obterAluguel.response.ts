@@ -4,7 +4,7 @@ export class ObterCopiasDisponiveisResponse {
     @ApiProperty({
         description: 'Id de registro do Livro',
     })
-    id: number;
+    idLivro: number;
 
     @ApiProperty({
         description: 'Nome de registro do Livro',

@@ -9,3 +9,12 @@ export class ObterQuantidadeDisponiveisLivroIdDTO {
     @IsNotEmpty()
     idLivro: number;
 }
+
+export class ObterAluguelRequest {
+    @ApiProperty({
+        description: 'Id de registro da Cópia',
+        required: true,
+    })
+    @IsNotEmpty()
+    idAluguel: number;
+}

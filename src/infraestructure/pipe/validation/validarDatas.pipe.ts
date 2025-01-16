@@ -24,7 +24,7 @@ export class IsValidDateConstraint implements ValidatorConstraintInterface {
     }
 }
 
-export function isValidBirthDate(validationOptions?: ValidationOptions) {
+export function isValidNotAfter(validationOptions?: ValidationOptions) {
     return function (object: Object, propertyName: string): void {
         registerDecorator({
             target: object.constructor,
@@ -34,13 +34,13 @@ export function isValidBirthDate(validationOptions?: ValidationOptions) {
                 message: 'A data deve ser válida, seguir o formato AAAA-MM-DD e ser menor que hoje',
             },
             constraints: [],
-            validator: IsValidBirthDateConstraint,
+            validator: IsValidNotAfterConstraint,
         });
     };
 }
 
 @ValidatorConstraint()
-export class IsValidBirthDateConstraint implements ValidatorConstraintInterface {
+export class IsValidNotAfterConstraint implements ValidatorConstraintInterface {
     validate(value: string): boolean {
         const dataValue = parseISO(value);
         return isValid(dataValue) && isBefore(dataValue, new Date());
@@ -59,9 +59,9 @@ export function IsDateGreaterThan(property: string, validationOptions?: Validati
             validator: {
                 validate(value: string, args: ValidationArguments) {
                     const [relatedPropertyName] = args.constraints;
-                    const relatedValue = (args.object as Date)[relatedPropertyName];
-                    const dataValue = parseISO(value);
+                    const relatedValue = (args.object as any)[relatedPropertyName];
 
+                    const dataValue = parseISO(value);
                     if (!isValid(dataValue) || !isValid(relatedValue)) {
                         return false;
                     }

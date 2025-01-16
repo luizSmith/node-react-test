@@ -1,6 +1,6 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { IsNotEmpty } from "class-validator";
-import { isDateGreaterThanNow } from "src/infraestructure/pipe/validation/validarDatas.pipe";
+import { isDateGreaterThanNow, isValidNotAfter } from "src/infraestructure/pipe/validation/validarDatas.pipe";
 
 export class RegistrarAlugueRequest {
     @ApiProperty({
@@ -22,4 +22,12 @@ export class RegistrarAlugueRequest {
     })
     @isDateGreaterThanNow()
     dataPrazo: Date;
+}
+
+export class FinalizarAlugueRequest {
+    @ApiProperty({
+        description: 'Data de lançamento do livro, no formato ISO 8601',
+        required: false,
+    })
+    dataEntrega: Date;
 }

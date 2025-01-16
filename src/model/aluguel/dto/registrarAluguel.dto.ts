@@ -4,3 +4,7 @@ export class RegistrarAluguelDTO {
     idCopiaLivro: number;
     dtPrazo: Date;
 }
+
+export class AtualizarAluguelDTO {
+    dtDevolucao: Date;
+}

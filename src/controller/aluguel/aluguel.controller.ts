@@ -1,11 +1,11 @@
-import { Body, Controller, Get, HttpStatus, Param, Post } from "@nestjs/common";
+import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Post } from '@nestjs/common';
 import { ApiResponse, ApiTags } from "@nestjs/swagger";
 import { ErroPersonalizadoException } from "src/infraestructure/exceptions/erroPersonalizado.exception";
 import { RegraDeNegocioException } from "src/infraestructure/exceptions/regraDeNegocio.exception";
 import { AluguelService } from "src/service/aluguel/aluguel.service";
-import { RegistrarAlugueRequest } from "./request/registrarAluguel.request";
-import { ObterQuantidadeDisponiveisLivroIdDTO } from "./request/obterAluguel.request";
-import { ObterAluguelExistenteCopiaIdResponse, ObterCopiasDisponiveisResponse } from "./response/obterAluguel.response";
+import { FinalizarAlugueRequest, RegistrarAlugueRequest } from "./request/registrarAluguel.request";
+import { ObterAluguelRequest, ObterQuantidadeDisponiveisLivroIdDTO } from "./request/obterAluguel.request";
+import { ObterCopiasDisponiveisResponse } from "./response/obterAluguel.response";
 import { RegistrarAluguelResponse } from "./response/registrarAluguel.response";
 
 @Controller('aluguel')
@@ -13,7 +13,7 @@ import { RegistrarAluguelResponse } from "./response/registrarAluguel.response";
 export class AluguelController {
     constructor(private readonly _aluguelService: AluguelService) { }
 
-    @Get('')
+    @Get()
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Sucesso',
@@ -53,5 +53,27 @@ export class AluguelController {
     })
     async registrarAluguel(@Body() parametros: RegistrarAlugueRequest): Promise<RegistrarAluguelResponse> {
         return await this._aluguelService.registrarAluguel(parametros);
+    }
+
+    @Delete(':idAluguel')
+    @HttpCode(204)
+    @ApiResponse({
+        status: HttpStatus.NO_CONTENT,
+        description: 'Sucesso'
+    })
+    @ApiResponse({
+        status: HttpStatus.BAD_GATEWAY,
+        description: 'BAD_GATEWAY',
+        type: ErroPersonalizadoException,
+    })
+    @ApiResponse({
+        status: HttpStatus.NOT_FOUND,
+        description: 'NOT_FOUND',
+        type: RegraDeNegocioException,
+    })
+    async deletarPessoaId(
+        @Param() parametros: ObterAluguelRequest
+    ): Promise<void> {
+        await this._aluguelService.finalizarAluguel(parametros.idAluguel);
     }
 }

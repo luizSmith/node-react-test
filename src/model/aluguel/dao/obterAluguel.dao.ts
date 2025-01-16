@@ -1,11 +1,12 @@
 export class ObterCopiasDisponiveisDAO {
-    id: number;
+    idLivro: number;
     nomeLivro: string;
     quantidadeDisponivel: number;
 }
 
 export class ObterAluguelExistenteCopiaIdDAO {
-    id: number;
+    idLivro: number;
     nomeLivro: string;
     idCopia: number;
+    idAluguel: number;
 }
