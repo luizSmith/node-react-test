@@ -32,16 +32,15 @@ export class SegurancaMiddleware implements NestMiddleware {
       throw new Error('Variavel de ambiente "SALT" não definida');
     }
 
-    const decoded = jwt.verify(token, process.env.SALT) as jwt.JwtPayload;
+    jwt.verify(token, process.env.SALT, (error) => {
+      if (error.name === "TokenExpiredError") {
+        throw new RegraDeNegocioException(['Token expirou'], HttpStatus.UNAUTHORIZED)
+      }
 
-    if (!decoded.exp) throw new Error('Token não é valido');
-
-    if (Date.now() >= decoded.exp * 1000) {
       throw new RegraDeNegocioException(
-        ['Falha na autenticação, por favor renove seu token.'],
-        HttpStatus.UNAUTHORIZED
+        ['Token inválido'], HttpStatus.UNAUTHORIZED
       );
-    }
+    }) as jwt.JwtPayload;
 
     return true;
   }
