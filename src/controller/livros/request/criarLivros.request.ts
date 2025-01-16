@@ -12,7 +12,7 @@ export class CriarLivroRequest {
         description: 'Data de lançamento do livro, no formato ISO 8601',
     })
     @IsDateString()
-    lancamento: string;
+    lancamento: Date;
 
     @ApiProperty({
         description: 'ID do autor do livro (relacionado a um autor na base de dados)',
@@ -32,7 +32,7 @@ export class AtualizarLivroRequest {
         description: 'Data de lançamento do livro, no formato ISO 8601',
     })
     @IsDateString()
-    lancamento: string;
+    lancamento: Date;
 
     @ApiProperty({
         description: 'Indica se o livro está ativo (disponível) ou não',

@@ -23,7 +23,7 @@ export class Livros extends BaseEntity {
     type: 'varchar',
     width: 55,
   })
-  lancamento: string;
+  lancamento: Date;
 
   @Column({
     name: 'ic_ativo',

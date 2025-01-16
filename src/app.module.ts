@@ -9,6 +9,7 @@ import { DataSource } from 'typeorm';
 import { LivrosControllerModule } from './controller/livros/livros.controller.module';
 import { AutorControllerModule } from './controller/autor/autor.controller.module';
 import { CopiasControllerModule } from './controller/copias/copias.controller.module';
+import { AluguelControllerModule } from './controller/aluguel/aluguel.controller.module';
 
 @Module({
   imports: [
@@ -41,6 +42,7 @@ import { CopiasControllerModule } from './controller/copias/copias.controller.mo
     AutorControllerModule,
     LivrosControllerModule,
     CopiasControllerModule,
+    AluguelControllerModule,
   ],
 })
 export class AppModule implements NestModule {

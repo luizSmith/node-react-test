@@ -10,7 +10,7 @@ import { CriarCopiaResponse } from "./response/criarCopias.response";
 import { ObterCopiaRequest } from "./request/obterCopias.request";
 
 @Controller('livros')
-@ApiTags('Livros')
+@ApiTags('Copias')
 export class CopiasController {
     constructor(private readonly _copiasService: CopiasService) { }
 

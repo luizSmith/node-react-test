@@ -14,7 +14,7 @@ export class ObterLivroResponse {
   @ApiProperty({
     description: 'Data lançamento do livro',
   })
-  lancamento: string;
+  lancamento: Date;
 
   @ApiProperty({
     description: 'Nome autor do livro',

@@ -1,6 +1,6 @@
 export class ObterLivroDAO {
   id: number;
   nomeLivro: string;
-  lancamento: string;
+  lancamento: Date;
   nomeAutor: string;
 }
