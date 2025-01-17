@@ -3,9 +3,9 @@ import { ApiResponse, ApiTags } from "@nestjs/swagger";
 import { ErroPersonalizadoException } from "src/infraestructure/exceptions/erroPersonalizado.exception";
 import { RegraDeNegocioException } from "src/infraestructure/exceptions/regraDeNegocio.exception";
 import { AluguelService } from "src/service/aluguel/aluguel.service";
-import { FinalizarAlugueRequest, RegistrarAlugueRequest } from "./request/registrarAluguel.request";
+import { RegistrarAlugueRequest } from "./request/registrarAluguel.request";
 import { ObterAluguelRequest, ObterQuantidadeDisponiveisLivroIdDTO } from "./request/obterAluguel.request";
-import { ObterCopiasDisponiveisResponse } from "./response/obterAluguel.response";
+import { ObterAluguelExistenteCopiaIdDAO, ObterCopiasDisponiveisResponse } from "./response/obterAluguel.response";
 import { RegistrarAluguelResponse } from "./response/registrarAluguel.response";
 
 @Controller('aluguel')
@@ -13,7 +13,30 @@ import { RegistrarAluguelResponse } from "./response/registrarAluguel.response";
 export class AluguelController {
     constructor(private readonly _aluguelService: AluguelService) { }
 
-    @Get()
+    @Get('pessoa/:idPessoa')
+    @ApiResponse({
+        status: HttpStatus.OK,
+        description: 'Sucesso',
+        type: ObterAluguelExistenteCopiaIdDAO,
+        isArray: true
+    })
+    @ApiResponse({
+        status: HttpStatus.BAD_GATEWAY,
+        description: 'BAD_GATEWAY',
+        type: ErroPersonalizadoException,
+    })
+    @ApiResponse({
+        status: HttpStatus.NOT_FOUND,
+        description: 'NOT_FOUND',
+        type: RegraDeNegocioException,
+    })
+    async obterAluguelPessoaId(
+        @Param() parametros: ObterQuantidadeDisponiveisLivroIdDTO
+    ): Promise<ObterAluguelExistenteCopiaIdDAO[]> {
+        return await this._aluguelService.obterAluguelPessoaId(parametros.idLivro);
+    }
+
+    @Get('livros/:idLivro')
     @ApiResponse({
         status: HttpStatus.OK,
         description: 'Sucesso',

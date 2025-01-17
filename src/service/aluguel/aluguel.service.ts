@@ -1,11 +1,10 @@
 import { Injectable } from "@nestjs/common";
-import { FinalizarAlugueRequest, RegistrarAlugueRequest } from "src/controller/aluguel/request/registrarAluguel.request";
+import { RegistrarAlugueRequest } from "src/controller/aluguel/request/registrarAluguel.request";
 import { RegistrarAluguelResponse } from "src/controller/aluguel/response/registrarAluguel.response";
 import { RegraDeNegocioException } from "src/infraestructure/exceptions/regraDeNegocio.exception";
-import { ObterCopiasDisponiveisDAO } from "src/model/aluguel/dao/obterAluguel.dao";
+import { ObterAluguelExistenteCopiaIdDAO, ObterCopiasDisponiveisDAO } from "src/model/aluguel/dao/obterAluguel.dao";
 import { AtualizarAluguelDTO, RegistrarAluguelDTO } from "src/model/aluguel/dto/registrarAluguel.dto";
 import { AluguelRepository } from "src/repository/aluguel/aluguel.repository";
-import { Aluguel } from "src/repository/aluguel/entity/aluguel.entity";
 import { PessoaService } from "../pessoa/pessoa.service";
 
 @Injectable()
@@ -16,13 +15,14 @@ export class AluguelService {
     ) { }
 
     async registrarAluguel(parametros: RegistrarAlugueRequest): Promise<RegistrarAluguelResponse> {
+        await this._pessoaService.obterPessoaId(parametros.idPessoa);
+        await this._validarAtraso(parametros.idPessoa);
+
         const aluguelExiste = await this._aluguelRepository.obterAluguelExistenteCopiaId(parametros.idCopia);
 
         if (aluguelExiste) {
             throw new RegraDeNegocioException(['Cópia ainda não foi devolvida'], 400);
         }
-
-        await this._pessoaService.obterPessoaId(parametros.idPessoa);
 
         const parametrosAluguel: RegistrarAluguelDTO = {
             idCopiaLivro: parametros.idCopia,
@@ -58,5 +58,19 @@ export class AluguelService {
         }
 
         await this._aluguelRepository.finalizarAluguel(idAluguel, parametrosDevolucao);
+    }
+
+    private async _validarAtraso(idPessoa: number): Promise<void> {
+        const aluguel = await this._aluguelRepository.obterAtrasosPessoaId(idPessoa);
+
+        if (aluguel.length > 2) {
+            throw new RegraDeNegocioException(['Pessoa bloqueada por conter 2 atrasos'], 400);
+        }
+    }
+
+    async obterAluguelPessoaId(idPessoa: number): Promise<ObterAluguelExistenteCopiaIdDAO[]> {
+        await this._pessoaService.obterPessoaId(idPessoa);
+
+        return await this._aluguelRepository.obterAluguelPessoaId(idPessoa);
     }
 }

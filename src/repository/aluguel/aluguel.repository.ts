@@ -17,7 +17,7 @@ export class AluguelRepository {
     ) { }
 
     async obterCopiasDisponiveis(idLivro: number): Promise<ObterCopiasDisponiveisDAO> {
-        const livros = await this._livrosRepository
+        const copia = await this._livrosRepository
             .createQueryBuilder('livro')
             .select([
                 'livro.cd_livro id',
@@ -25,7 +25,7 @@ export class AluguelRepository {
                 'COUNT(*) quantidadeDisponivel',
             ])
             .innerJoin(Copias, 'copias', 'livro.cd_livro = copias.cd_livro')
-            .leftJoin(Aluguel, 'aluguel', 'aluguel.cd_copia = estoque.cd_copia')
+            .leftJoin(Aluguel, 'aluguel', 'aluguel.cd_copia = copias.cd_copia')
             .where(`(	
                 aluguel.dt_devolucao IS NOT NULL 
                 OR 
@@ -36,11 +36,11 @@ export class AluguelRepository {
             .groupBy('livro.cd_livro')
             .getRawOne<ObterCopiasDisponiveisDAO>();
 
-        return livros;
+        return copia;
     }
 
     async obterAluguelExistenteCopiaId(idCopia: number): Promise<ObterAluguelExistenteCopiaIdDAO> {
-        const livros = await this._livrosRepository
+        const aluguel = await this._livrosRepository
             .createQueryBuilder('livro')
             .select([
                 'livro.cd_livro id',
@@ -55,11 +55,11 @@ export class AluguelRepository {
             .andWhere('copias.cd_copia = :idCopia', { idCopia })
             .getRawOne<ObterAluguelExistenteCopiaIdDAO>();
 
-        return livros;
+        return aluguel;
     }
 
     async obterAluguelId(idAluguel: number): Promise<ObterAluguelExistenteCopiaIdDAO> {
-        const livros = await this._livrosRepository
+        const aluguel = await this._livrosRepository
             .createQueryBuilder('livro')
             .select([
                 'livro.cd_livro idLivro',
@@ -74,7 +74,7 @@ export class AluguelRepository {
             .andWhere('aluguel.cd_aluguel = :idAluguel', { idAluguel })
             .getRawOne<ObterAluguelExistenteCopiaIdDAO>();
 
-        return livros;
+        return aluguel;
     }
 
     async registrarAluguel(parametros: RegistrarAluguelDTO): Promise<Aluguel> {
@@ -94,5 +94,41 @@ export class AluguelRepository {
         );
 
         return livro.affected || 0;
+    }
+
+    async obterAtrasosPessoaId(idPessoa: number): Promise<ObterAluguelExistenteCopiaIdDAO[]> {
+        const aluguel = await this._livrosRepository
+            .createQueryBuilder('livro')
+            .select([
+                'livro.cd_livro idLivro',
+                'livro.nm_livro nomeLivro',
+                'copias.cd_copia idCopia',
+                'aluguel.cd_aluguel idAluguel'
+            ])
+            .innerJoin(Copias, 'copias', 'livro.cd_livro = copias.cd_livro')
+            .innerJoin(Aluguel, 'aluguel', 'aluguel.cd_copia = copias.cd_copia')
+            .where(`aluguel.dt_devolucao > aluguel.dt_prazo`)
+            .andWhere('aluguel.cd_pessoa = :idPessoa', { idPessoa })
+            .getRawMany<ObterAluguelExistenteCopiaIdDAO>();
+
+        return aluguel;
+    }
+
+    async obterAluguelPessoaId(idPessoa: number): Promise<ObterAluguelExistenteCopiaIdDAO[]> {
+        const aluguel = await this._livrosRepository
+            .createQueryBuilder('livro')
+            .select([
+                'livro.cd_livro idLivro',
+                'livro.nm_livro nomeLivro',
+                'copias.cd_copia idCopia',
+                'aluguel.cd_aluguel idAluguel'
+            ])
+            .innerJoin(Copias, 'copias', 'livro.cd_livro = copias.cd_livro')
+            .innerJoin(Aluguel, 'aluguel', 'aluguel.cd_copia = copias.cd_copia')
+            .where(`aluguel.dt_devolucao IS NULL`)
+            .andWhere('aluguel.cd_pessoa = :idPessoa', { idPessoa })
+            .getRawMany<ObterAluguelExistenteCopiaIdDAO>();
+
+        return aluguel;
     }
 }

@@ -34,3 +34,25 @@ export class ObterAluguelExistenteCopiaIdResponse {
     })
     idCopia: number;
 }
+
+export class ObterAluguelExistenteCopiaIdDAO {
+    @ApiProperty({
+        description: 'Id de registro do Livro',
+    })
+    idLivro: number;
+
+    @ApiProperty({
+        description: 'Nome de registro do Livro',
+    })
+    nomeLivro: string;
+
+    @ApiProperty({
+        description: 'Id de cópida do Livro',
+    })
+    idCopia: number;
+
+    @ApiProperty({
+        description: 'Id de registro do Aluguel',
+    })
+    idAluguel: number;
+}
