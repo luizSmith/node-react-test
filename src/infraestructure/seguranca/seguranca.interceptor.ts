@@ -33,13 +33,16 @@ export class SegurancaMiddleware implements NestMiddleware {
     }
 
     jwt.verify(token, process.env.SALT, (error) => {
-      if (error.name === "TokenExpiredError") {
-        throw new RegraDeNegocioException(['Token expirou'], HttpStatus.UNAUTHORIZED)
+      if (error) {
+        if (error.name && error.name === "TokenExpiredError") {
+          throw new RegraDeNegocioException(['Token expirou'], HttpStatus.UNAUTHORIZED)
+        }
+
+        throw new RegraDeNegocioException(
+          ['Token inválido'], HttpStatus.UNAUTHORIZED
+        );
       }
 
-      throw new RegraDeNegocioException(
-        ['Token inválido'], HttpStatus.UNAUTHORIZED
-      );
     }) as jwt.JwtPayload;
 
     return true;
