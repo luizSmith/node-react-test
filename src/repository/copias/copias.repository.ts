@@ -5,6 +5,7 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { Copias } from "./entity/copias.entity";
 import { ObterCopiasLivroDAO } from "src/model/copia/dao/obterCopiasLivro.dao";
 import { CriarCopiaDTO } from "src/model/copia/dto/criarCopias.dto";
+import { Aluguel } from "../aluguel/entity/aluguel.entity";
 
 @Injectable()
 export class CopiasRepository {
@@ -21,8 +22,10 @@ export class CopiasRepository {
                 'copia.dt_estoque dtEstoque',
                 'livros.cd_livro idLivro',
                 'livros.nm_livro nomeLivro',
+                'IF(aluguel.cd_aluguel IS NULL, "DISPONIVEL", "ALUGADO") status',
             ])
             .innerJoin(Livros, 'livros', 'livros.cd_livro = copia.cd_livro')
+            .leftJoin(Aluguel, 'aluguel', 'aluguel.cd_copia = copia.cd_copia')
             .where('livros.ic_ativo = true')
             .andWhere('copia.ic_ativo = true')
             .andWhere('livros.cd_livro = :idLivro', { idLivro })
@@ -43,8 +46,10 @@ export class CopiasRepository {
                 'copia.dt_estoque dtEstoque',
                 'livros.cd_livro idLivro',
                 'livros.nm_livro nomeLivro',
+                'IF(aluguel.cd_aluguel IS NULL, "DISPONIVEL", "ALUGADO") disponivel',
             ])
             .innerJoin(Livros, 'livros', 'livros.cd_livro = copia.cd_livro')
+            .leftJoin(Aluguel, 'aluguel', 'aluguel.cd_copia = copia.cd_copia')
             .where('livros.ic_ativo = true')
             .andWhere('copia.ic_ativo = true')
             .andWhere('copia.cd_copia = :idCopia', { idCopia })

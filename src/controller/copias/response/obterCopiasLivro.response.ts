@@ -20,4 +20,10 @@ export class ObterCopiasLivroDAO {
         description: 'Nome do autor',
     })
     nomeLivro: string
+
+    @ApiProperty({
+        description: 'Cópia disponivel',
+    })
+    status: string;
+
 }
