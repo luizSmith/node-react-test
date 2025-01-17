@@ -69,7 +69,7 @@ export class PessoaService {
     private async _tratarCidade(cep: string): Promise<Cidade> {
         const endereco = await this._viaCepClient.obterEnderecoPeloCep(cep)
 
-        if (!endereco) {
+        if (endereco.erro === 'true') {
             throw new RegraDeNegocioException(['Cep não é válido'], 400);
         }
 

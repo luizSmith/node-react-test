@@ -9,4 +9,5 @@ export class ObterEnderecoPeloCepDAO {
     gia: string;
     ddd: string;
     siafi: string;
+    erro?: string;
 }
