@@ -1,4 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { isValidNotAfter } from 'src/infraestructure/pipe/validation/validarDatas.pipe';
 
 export class CriarPessoaRequest {
     @ApiProperty({
@@ -17,6 +18,7 @@ export class CriarPessoaRequest {
         description: 'Data de nascimento da Pessoa',
         example: '1985-01-01',
     })
+    @isValidNotAfter()
     dataNascimento: string;
 
     @ApiProperty({

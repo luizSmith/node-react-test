@@ -48,7 +48,7 @@ export class AutorController {
         description: 'NOT_FOUND',
         type: RegraDeNegocioException,
     })
-    async criarLivro(@Body() parametros: CriarAutorRequest): Promise<ObterAutorResponse> {
+    async criarAutor(@Body() parametros: CriarAutorRequest): Promise<ObterAutorResponse> {
         return await this._autorService.criarAutor(parametros);
     }
 }
