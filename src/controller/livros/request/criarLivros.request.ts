@@ -21,7 +21,7 @@ export class CriarLivroRequest {
         description: 'Número de Registro da edição',
     })
     @IsISBN(null, {
-        message: "Número de registro da edição é inválido"
+        message: "Número de registro ISBN é inválido"
     })
     isbn: string;
 
@@ -56,7 +56,7 @@ export class AtualizarLivroRequest {
         description: 'Número de Registro da edição',
     })
     @IsISBN(null, {
-        message: "Número de registro da edição é inválido"
+        message: "Número de registro ISBN é inválido"
     })
     isbn: string;
 

@@ -10,6 +10,7 @@ import { LivrosControllerModule } from './controller/livros/livros.controller.mo
 import { AutorControllerModule } from './controller/autor/autor.controller.module';
 import { CopiasControllerModule } from './controller/copias/copias.controller.module';
 import { AluguelControllerModule } from './controller/aluguel/aluguel.controller.module';
+import { PainelControllerModule } from './controller/painel/painel.controller.module';
 
 @Module({
   imports: [
@@ -43,6 +44,7 @@ import { AluguelControllerModule } from './controller/aluguel/aluguel.controller
     LivrosControllerModule,
     CopiasControllerModule,
     AluguelControllerModule,
+    PainelControllerModule,
   ],
 })
 export class AppModule implements NestModule {
