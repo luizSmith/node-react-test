@@ -6,6 +6,7 @@ import { AtualizarAluguelDTO, RegistrarAluguelDTO } from "src/model/aluguel/dto/
 import { Livros } from "../livros/entity/livros.entity";
 import { Copias } from "../copias/entity/copias.entity";
 import { ObterAluguelExistenteCopiaIdDAO, ObterCopiasDisponiveisDAO } from "src/model/aluguel/dao/obterAluguel.dao";
+import { RegistrarAluguelDAO } from "src/model/aluguel/dao/registrarAluguel.dao";
 
 @Injectable()
 export class AluguelRepository {
@@ -77,7 +78,7 @@ export class AluguelRepository {
         return aluguel;
     }
 
-    async registrarAluguel(parametros: RegistrarAluguelDTO): Promise<Aluguel> {
+    async registrarAluguel(parametros: RegistrarAluguelDTO): Promise<RegistrarAluguelDAO> {
         return await this._aluguelRepository.create({
             ...parametros,
         }).save();
