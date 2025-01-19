@@ -4,3 +4,9 @@ export class ObterRankingLivrosMaisAlugadosAnoDAO {
     nomeLivro: string;
     quantidadeAlugada: number;
 }
+
+export class obterRankingLivrosMaisAtrasadosAnoDAO {
+    mes: number;
+    nomeLivro: string;
+    totalAtraso: number;
+}

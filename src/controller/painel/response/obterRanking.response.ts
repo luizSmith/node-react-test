@@ -21,6 +21,7 @@ class DadosCidade {
     @ApiProperty({
         description: 'Lista de livros mais alugados naquele mês.',
         type: [DadosLivroResponse],
+        isArray: true
     })
     livros: DadosLivroResponse[];
 }
@@ -34,6 +35,7 @@ export class DadosCidadeResponse {
     @ApiProperty({
         description: 'Lista de dados de aluguel por mês na cidade.',
         type: [DadosCidade],
+        isArray: true,
     })
     dadosCidade: DadosCidade[];
 }
@@ -47,6 +49,48 @@ export class ObterRankingLivrosMaisAlugadosAnoResponse {
     @ApiProperty({
         description: 'Lista de cidades com seus respectivos rankings de livros.',
         type: [DadosCidadeResponse],
+        isArray: true
     })
     dados: DadosCidadeResponse[];
 }
+
+
+class LivroAtraso {
+    @ApiProperty({
+        description: 'Nome do livro',
+    })
+    nomeLivro: string;
+
+    @ApiProperty({
+        description: 'Numero de atrasos',
+    })
+    totalAtrasos: number;
+};
+
+export class DadosMes {
+    @ApiProperty({
+        description: 'Mês correspondente',
+    })
+    mes: number;
+
+    @ApiProperty({
+        description: 'Dados correspondentes ao mes',
+        type: [LivroAtraso],
+        isArray: true,
+    })
+    dadosMes: LivroAtraso[];
+};
+
+export class ObterRankingLivrosAtrasoResponse {
+    @ApiProperty({
+        description: 'Ano Correspondente',
+    })
+    ano: number;
+
+    @ApiProperty({
+        description: 'Dados de atraso',
+        type: [DadosMes],
+        isArray: true,
+    })
+    dados: DadosMes[];
+};

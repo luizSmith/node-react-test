@@ -1,7 +1,7 @@
 import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
-import { ObterRankingLivrosMaisAlugadosAnoDAO } from "src/model/painel/obterRanking.dao";
+import { ObterRankingLivrosMaisAlugadosAnoDAO, obterRankingLivrosMaisAtrasadosAnoDAO } from "src/model/painel/obterRanking.dao";
 import { Aluguel } from "../aluguel/entity/aluguel.entity";
 
 @Injectable()
@@ -60,6 +60,53 @@ export class PainelRepository {
             `, [ano])
 
         return aluguel;
+    }
+
+    async obterRankingLivrosMaisAtrasadosAno(ano: number): Promise<obterRankingLivrosMaisAtrasadosAnoDAO[]> {
+        const atrasos = await this._aluguelRepository
+            .query(`WITH AtrasosPorLivro AS (
+                    SELECT 
+                        l.nm_livro,
+                        YEAR(a.dt_retirada) AS ano,
+                        MONTH(a.dt_retirada) AS mes,
+                        DATEDIFF(a.dt_devolucao, a.dt_prazo) AS atrasosDias
+                    FROM 
+                        tb_aluguel a
+                    INNER JOIN 
+                        tb_copia_livro cl ON a.cd_copia = cl.cd_copia
+                    INNER JOIN 
+                        tb_livro l ON cl.cd_livro = l.cd_livro
+                    WHERE 
+                        a.dt_devolucao IS NOT NULL
+                        AND YEAR(a.dt_retirada) = ?
+                        AND DATEDIFF(a.dt_devolucao, a.dt_prazo) > 0
+                ),
+                RankedAtrasosPorLivro AS (
+                    SELECT 
+                        nm_livro,
+                        ano,
+                        mes,
+                        SUM(atrasosDias) AS totalAtraso,
+                        RANK() OVER (PARTITION BY ano, mes ORDER BY SUM(atrasosDias) DESC) AS rankAtrasos
+                    FROM 
+                        AtrasosPorLivro
+                    GROUP BY 
+                        nm_livro, ano, mes
+                )
+                SELECT 
+                    ano,
+                    mes,
+                    nm_livro nomeLivro,
+                    totalAtraso
+                FROM 
+                    RankedAtrasosPorLivro
+                WHERE 
+                    rankAtrasos <= 3
+                ORDER BY 
+                    ano, mes, rankAtrasos;
+            `, [ano])
+
+        return atrasos;
     }
 
 }

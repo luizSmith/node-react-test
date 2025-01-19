@@ -1,7 +1,7 @@
 import { Injectable } from "@nestjs/common";
-import { ObterRankingLivrosMaisAlugadosAnoResponse } from "src/controller/painel/response/obterRanking.response";
+import { ObterRankingLivrosAtrasoResponse, ObterRankingLivrosMaisAlugadosAnoResponse } from "src/controller/painel/response/obterRanking.response";
 import { RegraDeNegocioException } from "src/infraestructure/exceptions/regraDeNegocio.exception";
-import { ObterRankingLivrosMaisAlugadosAnoDAO } from "src/model/painel/obterRanking.dao";
+import { ObterRankingLivrosMaisAlugadosAnoDAO, obterRankingLivrosMaisAtrasadosAnoDAO } from "src/model/painel/obterRanking.dao";
 import { PainelRepository } from "src/repository/painel/painel.repository";
 
 @Injectable()
@@ -18,7 +18,7 @@ export class PainelService {
         } catch (error) {
             console.error(error)
             throw new RegraDeNegocioException(
-                ["Erro obter ranking"], 400
+                ["Erro obter ranking livros do ano"], 400
             );
         }
     }
@@ -55,4 +55,47 @@ export class PainelService {
 
         return resultado;
     }
+
+    async obterRankingLivrosMaisAtrasadosAno(ano: number): Promise<ObterRankingLivrosAtrasoResponse> {
+
+        try {
+            const dados = await this._painelRepository.obterRankingLivrosMaisAtrasadosAno(ano);
+
+            return this.__mappingRankingLivrosAtrasoAnoResponse(dados, ano);
+
+        } catch (error) {
+            console.error(error)
+            throw new RegraDeNegocioException(
+                ["Erro obter ranking atrasados do ano"], 400
+            );
+        }
+    }
+
+    private __mappingRankingLivrosAtrasoAnoResponse(dadosAluguel: obterRankingLivrosMaisAtrasadosAnoDAO[], ano: number): ObterRankingLivrosAtrasoResponse {
+        const resultado: ObterRankingLivrosAtrasoResponse = {
+            ano,
+            dados: [],
+        };
+
+        dadosAluguel.forEach((item: obterRankingLivrosMaisAtrasadosAnoDAO) => {
+            let mesDados = resultado.dados.find(dado => dado.mes === item.mes);
+            if (!mesDados) {
+                mesDados = { mes: item.mes, dadosMes: [] };
+                resultado.dados.push(mesDados);
+            }
+
+            const livro = mesDados.dadosMes.find(livro => livro.nomeLivro === item.nomeLivro);
+            if (livro) {
+                livro.totalAtrasos += item.totalAtraso;
+            } else {
+                mesDados.dadosMes.push({
+                    nomeLivro: item.nomeLivro,
+                    totalAtrasos: item.totalAtraso,
+                });
+            }
+        });
+
+        return resultado;
+    }
+
 }
