@@ -63,6 +63,7 @@ export class LivrosService {
     const responseLivro: ObterLivroResponse = {
       id: livro.id,
       nomeLivro: livro.nome,
+      isbn: livro.isbn,
       lancamento: livro.lancamento,
       nomeAutor: autor.nome
     }

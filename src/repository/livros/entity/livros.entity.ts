@@ -26,6 +26,13 @@ export class Livros extends BaseEntity {
   lancamento: Date;
 
   @Column({
+    name: 'cd_isbn',
+    type: 'varchar',
+    width: 13,
+  })
+  isbn: string;
+
+  @Column({
     name: 'ic_ativo',
   })
   ativo: boolean;

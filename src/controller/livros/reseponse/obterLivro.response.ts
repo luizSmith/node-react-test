@@ -17,6 +17,11 @@ export class ObterLivroResponse {
   lancamento: Date;
 
   @ApiProperty({
+    description: 'Número de Registro da edição',
+  })
+  isbn: string;
+
+  @ApiProperty({
     description: 'Nome autor do livro',
   })
   nomeAutor: string;

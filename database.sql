@@ -51,6 +51,7 @@ CREATE TABLE IF NOT EXISTS db_biblioteca.tb_livro (
 	cd_livro INT AUTO_INCREMENT PRIMARY KEY,
 	nm_livro VARCHAR(55) NOT NULL,
 	dt_lancamento DATE NOT NULL,
+	cd_isbn VARCHAR(13) NOT NULL,
 	cd_autor INT NOT NULL,
 	ic_ativo BOOLEAN DEFAULT 1,
 	CONSTRAINT fk_livro_autor

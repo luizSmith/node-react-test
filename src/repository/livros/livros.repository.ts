@@ -20,6 +20,7 @@ export class LivrosRepository {
         'livro.cd_livro id',
         'livro.nm_livro nomeLivro',
         'livro.dt_lancamento',
+        'livro.cd_isbn isbn',
         'autor.nm_autor nomeAutor',
       ])
       .innerJoin(Autor, 'autor', 'autor.cd_autor = livro.cd_autor')
@@ -36,6 +37,7 @@ export class LivrosRepository {
         'livro.cd_livro id',
         'livro.nm_livro nomeLivro',
         'livro.dt_lancamento',
+        'livro.cd_isbn isbn',
         'autor.nm_autor nomeAutor',
       ])
       .innerJoin(Autor, 'autor', 'autor.cd_autor = livro.cd_autor')

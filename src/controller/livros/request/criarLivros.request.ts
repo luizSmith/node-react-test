@@ -1,5 +1,6 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsDateString, IsNumber, IsString } from "class-validator";
+import { IsDateString, IsISBN, isISBN, IsNumber, IsString } from "class-validator";
+import { isValidNotAfter } from "src/infraestructure/pipe/validation/validarDatas.pipe";
 
 export class CriarLivroRequest {
     @ApiProperty({
@@ -10,9 +11,19 @@ export class CriarLivroRequest {
 
     @ApiProperty({
         description: 'Data de lançamento do livro, no formato ISO 8601',
+        example: '1911-10-03'
     })
     @IsDateString()
+    @isValidNotAfter()
     lancamento: Date;
+
+    @ApiProperty({
+        description: 'Número de Registro da edição',
+    })
+    @IsISBN(null, {
+        message: "Número de registro da edição é inválido"
+    })
+    isbn: string;
 
     @ApiProperty({
         description: 'ID do autor do livro (relacionado a um autor na base de dados)',
@@ -30,14 +41,24 @@ export class AtualizarLivroRequest {
 
     @ApiProperty({
         description: 'Data de lançamento do livro, no formato ISO 8601',
+        example: '1911-10-03'
     })
     @IsDateString()
+    @isValidNotAfter()
     lancamento: Date;
 
     @ApiProperty({
         description: 'Indica se o livro está ativo (disponível) ou não',
     })
     ativo: boolean;
+
+    @ApiProperty({
+        description: 'Número de Registro da edição',
+    })
+    @IsISBN(null, {
+        message: "Número de registro da edição é inválido"
+    })
+    isbn: string;
 
     @ApiProperty({
         description: 'ID do autor do livro (relacionado a um autor na base de dados)',
