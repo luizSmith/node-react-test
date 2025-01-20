@@ -1,56 +1,74 @@
-### FCamara
+<p align="center">
+  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
+</p>
 
-*"Queremos ser como uma árvore, crescer um pouco todos os dias e tentar tocar o céu, sem perder a solidez de nossas raízes." Conheça:* [www.fcamara.com.br](http://www.fcamara.com.br "www.fcamara.com.br")
+## Descrição
 
-### Teste para vaga desenvolvedor node.js/react.js
+Este projeto foi desenvolvido como parte do processo seletivo para a vaga de **Dev Backend** na **FCamara**. O objetivo do projeto é demonstrar habilidades em desenvolvimento de backend, integração com MySQL, testes unitários e documentação via Swagger.
 
-------------
-Criar um sistema de controle de aluguel livros em uma biblioteca.
-Dados:
+## Tecnologias Utilizadas
 
-- um livro pode ter varias copias
-- uma copia não pode estar com mais de uma pessoa ao mesmo tempo
+- **Nest.js 10.4.5**: Framework para construção de APIs robustas em Node.js.
+- **Node.js 20.15.1**: Ambiente de execução JavaScript no servidor.
+- **Yarn 1.22.22**: Gerenciador de pacotes.
+- **MySQL**: Banco de dados relacional.
+- **Docker**: Usado para orquestrar o banco de dados MySQL.
+- **Swagger**: Para documentação interativa da API.
+- **Vitest 3.0.2**: Framework de testes para realizar testes unitários.
 
-Todos os campos são obrigatórios.
+## Requisitos
 
-### Cadastro de Pessoa
+- **Node.js**: versão 20.15.1
+- **Yarn**: versão 1.22.22
+- **Docker**: para rodar o banco de dados MySQL
 
-- Nome
-- CPF
-- Data Nascimento
-- Endereço completo
+## Instruções
 
-### Cadastro de Livro
+### 1. Configuração do Banco de Dados
 
-- Titulo
-- Autor
-- ISBN
-- Código da cópia
+Certifique-se de ter o **Docker** instalado e funcionando. Para inicializar o banco de dados MySQL via Docker, execute o comando:
 
-### Funcionalidades
+```bash
+docker compose up
+````
 
-- Pessoa: CRUD
-- Livro: CRUD
-- Copia: CRUD
-- Controle de aluguel
+O docker-compose irá configurar e iniciar uma instância do MySQL automaticamente. A configuração do banco de dados está definida no arquivo database.sql, que contém todas as tabelas e inserções necessárias para rodar a aplicação corretamente.
 
-### Requisitos
+### 2. Rodar Local
 
-- Persistencia utlizando banco de dados relacional open source (MySQL, Postgresql, Firebird, etc..) de sua preferencia
-- RESTful JSON
-- Autenticacao JWT
-- Front-End deve ser responsivo (pelo menos desktop e celular), ter pelo menos uma tela modal, um menu lateral que expande, não usar bootstrap e jquery
-- Listar o titulo dos 3 livros que mais tiveram atraso na devolução por mes durante o ano (mostrar todos os meses do ano)
-- Listar o titulo dos 3 livros mais alugados por cidade durante o ano (mostrar todos os meses do ano)
-- Se pessoa atrasou devolução mais de 2x ela não pode alugar mais
-- Criar README do projeto descrevendo as tecnologias utilizadas, chamadas dos serviços e configurações necessário para executar a aplicação
+Primeiro garanta a existencia deu m banco de dados MySQL e que as váriaveis estejam em um arquivo .env com os mesmos nomes do arquivo `process-local.env`
 
-### Submissão
+### Instalação das Dependências
 
-------------
-Crie um fork do teste para acompanharmos o seu desenvolvimento através dos seus commits.
+Após garantir que o banco de dados esteja em execução, instale as dependências do projeto utilizando o Yarn:
 
-### Obrigado
+```bash
+yarn install
+````
 
-------------
-Agradecemos sua participação no teste. Boa sorte!
+### Executando a API
+
+Após a instalação das dependências, inicie o servidor Nest.js com o comando:
+
+bash
+Copiar código
+
+```bash
+yarn start
+````
+
+### 3. A documentação
+
+A documentação da API foi configurada utilizando o Swagger. Para acessá-la, basta navegar até a seguinte URL no seu navegador:
+
+```bash
+http://localhost:3000/api-docs
+````
+
+### 4. Testes Unitários
+
+Para executar os testes unitários da service, execute o seguinte comando:
+
+```bash
+yarn test
+````
