@@ -4,5 +4,5 @@ export class ObterAdministradorDAO {
     cpf: string;
     email: string;
     senha: string;
-    nascimneto: Date;
+    nascimento: Date;
 }

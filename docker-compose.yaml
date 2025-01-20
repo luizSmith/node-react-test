@@ -1,7 +1,7 @@
 version: '3.1'
 
 services:
-  mysql:
+  db_biblioteca:
     image: mysql:latest
     container_name: db_biblioteca
     environment:
@@ -13,6 +13,30 @@ services:
       - "3306:3306"
     volumes:
       - mysql-data:/var/lib/mysql
+
+  app:
+    container_name: app_biblioteca
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db_biblioteca
+    environment:
+      - HOST_DB=db_biblioteca
+      - USERNAME_DB=admin
+      - PORT_DB=3306
+      - PASSWORD_DB=123456
+      - DATABASE=db_biblioteca
+      - VIA_CEP_API_URL=https://viacep.com.br/ws/
+      - LOGGING=true
+      - LOG_RULES='level=error'
+      - SALT=800j=#MJ4Dkw
+
+networks:
+  mynetwork:
+    driver: bridge
 
 volumes:
   mysql-data:

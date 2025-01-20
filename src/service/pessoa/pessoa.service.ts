@@ -9,6 +9,8 @@ import { Cidade } from "src/repository/cidade/entity/cidade.entity";
 import { AtualizarPessoaDTO, CriarPessoaDTO } from "src/model/pessoa/dto/criarPessoa.dto";
 import { Pessoa } from "src/repository/pessoa/entity/pessoas.entity";
 import { Transactional } from "typeorm-transactional";
+import { CriarPressoaDAO } from "src/model/pessoa/dao/criarPessoa.dao";
+import { CriarCidadeDAO } from "src/model/cidade/dao/criarCidade.dao";
 
 @Injectable()
 export class PessoaService {
@@ -66,7 +68,7 @@ export class PessoaService {
         }
     }
 
-    private async _tratarCidade(cep: string): Promise<Cidade> {
+    private async _tratarCidade(cep: string): Promise<CriarCidadeDAO> {
         const endereco = await this._viaCepClient.obterEnderecoPeloCep(cep)
 
         if (endereco.erro === 'true') {
@@ -88,7 +90,7 @@ export class PessoaService {
         return cidade;
     }
 
-    private _mappingCriarPessoaResponse(pessoa: Pessoa, cidade: Cidade): ObterPessoaResponse {
+    private _mappingCriarPessoaResponse(pessoa: CriarPressoaDAO, cidade: CriarCidadeDAO): ObterPessoaResponse {
         const pessoaResponse: ObterPessoaResponse = {
             id: pessoa.id,
             nome: pessoa.nome,
