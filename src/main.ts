@@ -5,6 +5,7 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { ErroCustomisadoInterceptor } from './infraestructure/interceptors/erroCustomisado.interceptor';
 import { initializeTransactionalContext } from 'typeorm-transactional';
 import { ValidacaoCustomizadaPipe } from './infraestructure/pipe/validacaoCustomizada.pipe';
+import { CustomLogger } from './infraestructure/logger/custom.logger';
 
 initializeEnvironmentConfig();
 
@@ -15,6 +16,8 @@ async function bootstrap() {
 
   app.useGlobalInterceptors(new ErroCustomisadoInterceptor());
   app.useGlobalPipes(new ValidacaoCustomizadaPipe());
+
+  app.useLogger(app.get(CustomLogger));
 
   const config = new DocumentBuilder()
     .setTitle('API Biblioteca')

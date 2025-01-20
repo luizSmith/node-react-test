@@ -11,6 +11,8 @@ import { AutorControllerModule } from './controller/autor/autor.controller.modul
 import { CopiasControllerModule } from './controller/copias/copias.controller.module';
 import { AluguelControllerModule } from './controller/aluguel/aluguel.controller.module';
 import { PainelControllerModule } from './controller/painel/painel.controller.module';
+import { LoggerModule } from 'nestjs-pino';
+import { CustomLogger } from './infraestructure/logger/custom.logger';
 
 @Module({
   imports: [
@@ -38,6 +40,11 @@ import { PainelControllerModule } from './controller/painel/painel.controller.mo
         return addTransactionalDataSource(new DataSource(options));
       },
     }),
+    LoggerModule.forRoot({
+      pinoHttp: {
+        level: 'trace'
+      }
+    }),
     AuthControllerModule,
     PessoaControllerModule,
     AutorControllerModule,
@@ -46,6 +53,8 @@ import { PainelControllerModule } from './controller/painel/painel.controller.mo
     AluguelControllerModule,
     PainelControllerModule,
   ],
+  providers: [CustomLogger],
+  exports: [CustomLogger]
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer): void {
