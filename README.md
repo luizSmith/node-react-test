@@ -32,6 +32,12 @@ Certifique-se de ter o **Docker** instalado e funcionando. Para inicializar o ba
 docker compose up
 ````
 
+Caso não tenha a versão do node instalada, digite o seguinte comando no terminal
+
+```bash
+docker pull node:20.18-alpine
+````
+
 O docker-compose irá configurar e iniciar uma instância do MySQL automaticamente. A configuração do banco de dados está definida no arquivo database.sql, que contém todas as tabelas e inserções necessárias para rodar a aplicação corretamente.
 
 ### 2. Rodar Local
