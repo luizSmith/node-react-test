@@ -120,3 +120,8 @@ INSERT INTO tb_estado (sg_uf, nm_estado) VALUES
 ('SP', 'São Paulo'),
 ('SE', 'Sergipe'),
 ('TO', 'Tocantins');
+
+INSERT INTO db_biblioteca.tb_adminstrador
+(nm_adm, cd_cpf, nm_email, nm_senha, dt_nascimento)
+VALUES('Admin', '13629966020', 'admin@gmail.com', '6ecb9250e6494db20a31306ab4f6d343', '1911-10-03');
+-- Senha: test
