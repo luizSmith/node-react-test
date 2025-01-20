@@ -6,6 +6,7 @@ import { LivrosRepository } from 'src/repository/livros/livros.repository';
 import { AutorService } from '../autor/autor.service';
 import { Livros } from 'src/repository/livros/entity/livros.entity';
 import { ObterAutorResponse } from 'src/controller/autor/response/obterAutor.response';
+import { CriarLivrosDAO } from 'src/model/livro/dao/criarLivro.dao';
 
 @Injectable()
 export class LivrosService {
@@ -59,7 +60,7 @@ export class LivrosService {
     }
   }
 
-  private __mappingCriarLivroResponse(livro: Livros, autor: ObterAutorResponse): ObterLivroResponse {
+  private __mappingCriarLivroResponse(livro: CriarLivrosDAO, autor: ObterAutorResponse): ObterLivroResponse {
     const responseLivro: ObterLivroResponse = {
       id: livro.id,
       nomeLivro: livro.nome,
