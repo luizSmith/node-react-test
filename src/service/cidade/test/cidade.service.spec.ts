@@ -4,7 +4,8 @@ import { CidadeRepository } from 'src/repository/cidade/cidade.repository';
 import { RegraDeNegocioException } from 'src/infraestructure/exceptions/regraDeNegocio.exception';
 import { CriarCidadeDTO } from 'src/model/cidade/dto/criarCidade.dto';
 import { ObterCidadeDTO } from 'src/model/cidade/dto/obterCidade.dto';
-import { Cidade } from 'src/repository/cidade/entity/cidade.entity';
+import { CriarCidadeDAO } from 'src/model/cidade/dao/criarCidade.dao';
+import { ObterCidadeDAO } from 'src/model/cidade/dao/obterCidade.dao';
 
 describe('CidadeService', () => {
     let cidadeService: CidadeService;
@@ -26,7 +27,7 @@ describe('CidadeService', () => {
                 uf: 'SP',
             };
 
-            const mockCidade = { id: 1, nome: 'São Paulo', uf: 'SP' } as Cidade;
+            const mockCidade = { id: 1, nome: 'São Paulo', uf: 'SP' } as ObterCidadeDAO;
 
             vi.spyOn(cidadeRepository, 'obterCidadeNomeUf').mockResolvedValue(mockCidade);
 
@@ -42,7 +43,7 @@ describe('CidadeService', () => {
                 uf: 'SP',
             };
 
-            vi.spyOn(cidadeRepository, 'obterCidadeNomeUf').mockRejectedValue(new Error('Erro ao consultar cidade'));
+            vi.spyOn(cidadeRepository, 'obterCidadeNomeUf').mockRejectedValue(new RegraDeNegocioException(['Erro ao consultar cidade'], 400));
 
             await expect(cidadeService.obterCidadeNomeUf(parametros)).rejects.toThrowError(
                 RegraDeNegocioException
@@ -57,7 +58,7 @@ describe('CidadeService', () => {
                 uf: 'SP',
             };
 
-            const mockCidade = { id: 1, nome: 'São Paulo', uf: 'SP' } as Cidade;
+            const mockCidade: CriarCidadeDAO = { id: 1, nome: 'São Paulo', uf: 'SP' };
 
             vi.spyOn(cidadeRepository, 'criarCidade').mockResolvedValue(mockCidade);
 

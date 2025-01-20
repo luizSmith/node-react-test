@@ -1,5 +1,4 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-
 import { Repository } from 'typeorm';
 
 import { RegraDeNegocioException } from 'src/infraestructure/exceptions/regraDeNegocio.exception';

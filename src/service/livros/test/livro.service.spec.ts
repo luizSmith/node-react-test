@@ -6,7 +6,7 @@ import { CriarLivroRequest, AtualizarLivroRequest } from 'src/controller/livros/
 import { ObterLivroResponse } from 'src/controller/livros/reseponse/obterLivro.response';
 import { ObterAutorResponse } from 'src/controller/autor/response/obterAutor.response';
 import { AutorService } from 'src/service/autor/autor.service';
-import { Livros } from 'src/repository/livros/entity/livros.entity';
+import { CriarLivrosDAO } from 'src/model/livro/dao/criarLivro.dao';
 
 describe('LivrosService', () => {
     let livrosService: LivrosService;
@@ -78,7 +78,7 @@ describe('LivrosService', () => {
             };
 
             const mockAutor: ObterAutorResponse = { id: 1, nome: 'Autor Teste' };
-            const mockLivro = { id: 1, ativo: true, ...parametros } as Livros;
+            const mockLivro: CriarLivrosDAO = { id: 1, ativo: true, ...parametros };
 
             vi.spyOn(autorService, 'obterAutorId').mockResolvedValue(mockAutor);
             vi.spyOn(livrosRepository, 'criarLivro').mockResolvedValue(mockLivro);
