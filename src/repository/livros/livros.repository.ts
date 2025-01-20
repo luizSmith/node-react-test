@@ -5,6 +5,7 @@ import { Livros } from './entity/livros.entity';
 import { Autor } from '../autor/entity/autor.entity';
 import { ObterLivroDAO } from 'src/model/livro/dao/obterLivro.dao';
 import { AtualizarLivroDTO, CriarLivroDTO } from 'src/model/livro/dto/criarLivro.dto';
+import { CriarLivrosDAO } from 'src/model/livro/dao/criarLivro.dao';
 
 @Injectable()
 export class LivrosRepository {
@@ -48,7 +49,7 @@ export class LivrosRepository {
     return livros;
   }
 
-  async criarLivro(parametros: CriarLivroDTO): Promise<Livros> {
+  async criarLivro(parametros: CriarLivroDTO): Promise<CriarLivrosDAO> {
     return await this._livrosRepository.create({
       ...parametros,
       ativo: true

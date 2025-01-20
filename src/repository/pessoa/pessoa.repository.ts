@@ -5,6 +5,7 @@ import { Repository } from "typeorm";
 import { AtualizarPessoaDTO, CriarPessoaDTO } from "src/model/pessoa/dto/criarPessoa.dto";
 import { Cidade } from "../cidade/entity/cidade.entity";
 import { ObterPessoaDAO } from "src/model/pessoa/dao/obterPessoa.dao";
+import { CriarPressoaDAO } from "src/model/pessoa/dao/criarPessoa.dao";
 
 @Injectable()
 export class PessoaRepository {
@@ -52,7 +53,7 @@ export class PessoaRepository {
         return pessoa;
     }
 
-    async criarPessoa(parametros: CriarPessoaDTO): Promise<Pessoa> {
+    async criarPessoa(parametros: CriarPessoaDTO): Promise<CriarPressoaDAO> {
         return await this._pessoaRepository.create({
             ...parametros,
             ativo: true
