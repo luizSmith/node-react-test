@@ -1,5 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsDateString, IsISBN, isISBN, IsNumber, IsString } from "class-validator";
+import { IsBoolean, isBoolean, IsDateString, IsISBN, isISBN, IsNumber, IsString } from "class-validator";
 import { isValidNotAfter } from "src/infraestructure/pipe/validation/validarDatas.pipe";
 
 export class CriarLivroRequest {
@@ -50,6 +50,7 @@ export class AtualizarLivroRequest {
     @ApiProperty({
         description: 'Indica se o livro está ativo (disponível) ou não',
     })
+    @IsBoolean()
     ativo: boolean;
 
     @ApiProperty({
